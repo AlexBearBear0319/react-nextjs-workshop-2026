@@ -1,0 +1,58 @@
+@import "tailwindcss";
+@import "@fontsource/cascadia-code/400.css";
+
+/*
+ * Tailwind v4 defaults to prefers-color-scheme for dark mode.
+ * next-themes toggles a .dark class on <html>, so we must tell
+ * Tailwind to use class-based dark variants instead.
+ */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Workshop Companion Hub — Global Styles
+ * Primary: #9B191F (SIM Red)
+ * Light bg: #EFEFEF
+ * Dark bg:  zinc-950 / #121212
+ */
+
+@theme inline {
+  --color-sim-red: #9B191F;
+  --color-sim-light: #EFEFEF;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Cascadia Code", "Cascadia Mono", ui-monospace, monospace;
+}
+
+/* Light mode defaults */
+:root {
+  --background: #EFEFEF;
+  --foreground: #171717;
+}
+
+/* Dark mode overrides (toggled by next-themes via class="dark") */
+.dark {
+  --background: #121212;
+  --foreground: #ededed;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+/* Ensure code elements use Cascadia Code everywhere */
+code,
+pre,
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Smooth scrolling for in-page anchor links */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Section heading anchor offset for sticky navbar */
+[id] {
+  scroll-margin-top: 5rem;
+}
