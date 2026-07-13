@@ -1,7 +1,7 @@
 /**
  * Landing Page (/)
  *
- * Welcome screen with prerequisites — first page students see before Day 1.
+ * Welcome screen with Day 1 install prerequisites and Day 2 account setup.
  */
 
 import { WorkshopLayout } from "@/components/layout/WorkshopLayout";
@@ -28,14 +28,13 @@ export default function HomePage() {
         </p>
       </div>
 
-      {/* Prerequisites */}
+      {/* Day 1 — tools to install */}
       <div className="mb-10 rounded-xl border border-zinc-200 bg-white p-6 dark:border-zinc-700 dark:bg-zinc-900">
         <h2 className="mb-4 text-xl font-semibold text-zinc-900 dark:text-zinc-100">
-          Before We Start — Prerequisites
+          Before Day 1 — Install on your laptop
         </h2>
         <p className="mb-6 text-sm text-zinc-600 dark:text-zinc-400">
-          Make sure you have these installed on your laptop before Day 1 (
-          {DAY1_DATE}):
+          Make sure you have these installed before Day 1 ({DAY1_DATE}):
         </p>
         <ul className="space-y-8">
           <li className="flex items-start gap-3">
@@ -109,14 +108,101 @@ export default function HomePage() {
         </ul>
       </div>
 
+      {/* Day 2 — accounts */}
+      <div className="mb-10 rounded-xl border border-zinc-200 bg-white p-6 dark:border-zinc-700 dark:bg-zinc-900">
+        <h2 className="mb-4 text-xl font-semibold text-zinc-900 dark:text-zinc-100">
+          Before Day 2 — Create your accounts
+        </h2>
+        <p className="mb-6 text-sm text-zinc-600 dark:text-zinc-400">
+          Make sure you have your <strong>own</strong> GitHub and Vercel
+          accounts ready before Day 2 ({DAY2_DATE}). We will push your profile
+          card to GitHub and deploy it on Vercel.
+        </p>
+        <ul className="space-y-8">
+          <li className="flex items-start gap-3">
+            <span className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#9B191F]/10 text-xs font-bold text-[#9B191F]">
+              1
+            </span>
+            <div className="min-w-0 flex-1">
+              <p className="font-medium text-zinc-900 dark:text-zinc-100">
+                Register a GitHub account
+              </p>
+              <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                Sign up at{" "}
+                <a
+                  href="https://github.com/signup"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#9B191F] underline hover:no-underline"
+                >
+                  github.com/signup
+                </a>
+                . Use an email you can access — you will need this account on
+                Day 2.
+              </p>
+              <VideoEmbed
+                videoId="RnWDKWmaQ8s"
+                startSeconds={26}
+                title="Create a GitHub account"
+              />
+            </div>
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#9B191F]/10 text-xs font-bold text-[#9B191F]">
+              2
+            </span>
+            <div className="min-w-0 flex-1">
+              <p className="font-medium text-zinc-900 dark:text-zinc-100">
+                Link &amp; connect GitHub to VS Code
+              </p>
+              <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                Connect your GitHub account inside VS Code so you can push your
+                project from the editor.
+              </p>
+              <VideoEmbed
+                videoId="zko9puhRcHo"
+                title="Link and connect GitHub to Visual Studio Code"
+              />
+            </div>
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#9B191F]/10 text-xs font-bold text-[#9B191F]">
+              3
+            </span>
+            <div className="min-w-0 flex-1">
+              <p className="font-medium text-zinc-900 dark:text-zinc-100">
+                Create a Vercel account linked to GitHub
+              </p>
+              <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                Sign up at{" "}
+                <a
+                  href="https://vercel.com/signup"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#9B191F] underline hover:no-underline"
+                >
+                  vercel.com/signup
+                </a>{" "}
+                and connect the same GitHub account so Day 2 deployment is one
+                click.
+              </p>
+              <VideoEmbed
+                videoId="KW-NP7lolJk"
+                title="Create a Vercel account with GitHub linked"
+              />
+            </div>
+          </li>
+        </ul>
+      </div>
+
       {/* Quick start CTA */}
       <div className="rounded-xl border-2 border-dashed border-[#9B191F]/30 p-6 text-center">
         <p className="mb-3 text-lg font-semibold text-zinc-900 dark:text-zinc-100">
           Before Day 1 ({DAY1_DATE})
         </p>
         <p className="mb-4 text-sm text-zinc-600 dark:text-zinc-400">
-          Install the prerequisites above. Day 1 unlocks on {DAY1_DATE}, and Day
-          2 unlocks on {DAY2_DATE} — check the sidebar for the lock status.
+          Install the Day 1 tools above, and set up GitHub + Vercel before Day 2
+          ({DAY2_DATE}). Check the sidebar for lock status.
         </p>
         <a
           href="/day-1"
