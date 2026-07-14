@@ -3,34 +3,20 @@
 /**
  * /admin — Hidden unlock page (student mini-quiz destination).
  *
- * Not linked in the sidebar. Students who discover the route can unlock
- * Day 1 / Day 2 content for their own browser via localStorage.
+ * Not linked in the sidebar. Day 1 is permanently open; this route keeps the
+ * browser-only Day 2 test controls.
  */
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
   DAY1_DATE,
-  DAY1_STORAGE_KEY,
   DAY2_DATE,
   DAY2_STORAGE_KEY,
   WORKSHOP_UNLOCK_EVENT,
-  isDay1Unlocked as configDay1Unlocked,
-  isDay2Unlocked as configDay2Unlocked,
 } from "@/config/workshopState";
 import { WorkshopLayout } from "@/components/layout/WorkshopLayout";
 import { CelebrationBurst } from "@/components/ui/CelebrationBurst";
-
-function readDayUnlocked(storageKey: string, configUnlocked: boolean): boolean {
-  try {
-    const stored = localStorage.getItem(storageKey);
-    if (stored === "true") return true;
-    if (stored === "false") return false;
-  } catch {
-    // localStorage may be unavailable in some privacy modes
-  }
-  return configUnlocked;
-}
+import { useDay2Unlocked } from "@/hooks/useDay2Unlocked";
 
 function writeDayUnlocked(storageKey: string, unlocked: boolean) {
   try {
@@ -46,8 +32,8 @@ type UnlockCardProps = {
   sessionDate: string;
   href: string;
   unlocked: boolean;
-  onUnlock: () => void;
-  onLock: () => void;
+  onUnlock?: () => void;
+  onLock?: () => void;
 };
 
 function UnlockCard({
@@ -103,15 +89,17 @@ function UnlockCard({
                 <polyline points="12 5 19 12 12 19" />
               </svg>
             </Link>
-            <button
-              type="button"
-              onClick={onLock}
-              className="flex-1 rounded-lg border border-zinc-300 px-4 py-3 text-sm font-semibold text-zinc-700 transition-colors hover:bg-zinc-100 dark:border-zinc-600 dark:text-zinc-300 dark:hover:bg-zinc-800"
-            >
-              Lock again
-            </button>
+            {onLock && (
+              <button
+                type="button"
+                onClick={onLock}
+                className="flex-1 rounded-lg border border-zinc-300 px-4 py-3 text-sm font-semibold text-zinc-700 transition-colors hover:bg-zinc-100 dark:border-zinc-600 dark:text-zinc-300 dark:hover:bg-zinc-800"
+              >
+                Lock again
+              </button>
+            )}
           </>
-        ) : (
+        ) : onUnlock ? (
           <button
             type="button"
             onClick={onUnlock}
@@ -119,6 +107,10 @@ function UnlockCard({
           >
             Unlock {dayLabel}
           </button>
+        ) : (
+          <p className="w-full rounded-lg border border-zinc-300 px-4 py-3 text-center text-sm text-zinc-500 dark:border-zinc-700 dark:text-zinc-400">
+            Managed in workshop settings
+          </p>
         )}
       </div>
     </div>
@@ -126,13 +118,7 @@ function UnlockCard({
 }
 
 export default function AdminPage() {
-  const [day1Unlocked, setDay1Unlocked] = useState(configDay1Unlocked);
-  const [day2Unlocked, setDay2Unlocked] = useState(configDay2Unlocked);
-
-  useEffect(() => {
-    setDay1Unlocked(readDayUnlocked(DAY1_STORAGE_KEY, configDay1Unlocked));
-    setDay2Unlocked(readDayUnlocked(DAY2_STORAGE_KEY, configDay2Unlocked));
-  }, []);
+  const day2Unlocked = useDay2Unlocked();
 
   return (
     <WorkshopLayout>
@@ -153,8 +139,8 @@ export default function AdminPage() {
               Content Unlock
             </h1>
             <p className="text-zinc-600 dark:text-zinc-400">
-              Nice routing skills! Unlock the day you need, then jump into the
-              lesson.
+              Nice routing skills! Day 1 stays open; use this page only when
+              Day 2 needs a browser-only test unlock.
             </p>
           </div>
         </div>
@@ -164,15 +150,7 @@ export default function AdminPage() {
             dayLabel="Day 1"
             sessionDate={DAY1_DATE}
             href="/day-1"
-            unlocked={day1Unlocked}
-            onUnlock={() => {
-              writeDayUnlocked(DAY1_STORAGE_KEY, true);
-              setDay1Unlocked(true);
-            }}
-            onLock={() => {
-              writeDayUnlocked(DAY1_STORAGE_KEY, false);
-              setDay1Unlocked(false);
-            }}
+            unlocked
           />
           <UnlockCard
             dayLabel="Day 2"
@@ -181,11 +159,9 @@ export default function AdminPage() {
             unlocked={day2Unlocked}
             onUnlock={() => {
               writeDayUnlocked(DAY2_STORAGE_KEY, true);
-              setDay2Unlocked(true);
             }}
             onLock={() => {
               writeDayUnlocked(DAY2_STORAGE_KEY, false);
-              setDay2Unlocked(false);
             }}
           />
         </div>

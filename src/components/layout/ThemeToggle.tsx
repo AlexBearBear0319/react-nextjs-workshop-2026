@@ -7,14 +7,19 @@
  */
 
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
+
+const subscribeToHydration = () => () => {};
+const getClientSnapshot = () => true;
+const getServerSnapshot = () => false;
 
 export function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  // Avoid hydration mismatch — theme is only known on the client.
-  useEffect(() => setMounted(true), []);
+  const mounted = useSyncExternalStore(
+    subscribeToHydration,
+    getClientSnapshot,
+    getServerSnapshot,
+  );
 
   if (!mounted) {
     return (

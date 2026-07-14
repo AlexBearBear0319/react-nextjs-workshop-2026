@@ -49,8 +49,8 @@ export function CodeBlock({
   }, [code]);
 
   return (
-    <div className="group relative my-4 overflow-hidden rounded-xl border border-black/10 bg-zinc-50 dark:border-white/10 dark:bg-zinc-900">
-      <div className="flex items-center justify-between border-b border-black/10 bg-white/80 px-4 py-2 backdrop-blur-md dark:border-white/10 dark:bg-black/40">
+    <div className="group relative my-4 overflow-hidden rounded-xl border border-black/10 bg-zinc-50 dark:border-[#2a2a3a] dark:bg-[#12121a]">
+      <div className="flex items-center justify-between border-b border-black/10 bg-white/80 px-4 py-2 backdrop-blur-md dark:border-[#2a2a3a] dark:bg-[#0a0a0f]/70">
         <span className="font-mono text-xs text-zinc-500 dark:text-zinc-400">
           {title ?? language}
         </span>

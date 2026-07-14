@@ -3,23 +3,25 @@
  * Steps and copy-paste code follow the workshop PDF.
  */
 
+import Link from "next/link";
 import { CodeBlock } from "@/components/ui/CodeBlock";
+import { FacilitatorNote } from "@/components/ui/FacilitatorNote";
 import { ProTip } from "@/components/ui/ProTip";
 import { Section } from "@/components/ui/Section";
 import { Warning } from "@/components/ui/Warning";
+import {
+  DoneWhen,
+  HandsOnBanner,
+  LessonMeta,
+} from "@/components/workshop/LessonKit";
 import { DAY2_DATE } from "@/config/workshopState";
 
 export function HandsOn00Section() {
   return (
-    <Section id="hands-on-00" number={7} title="Hands-on #00 — Clean Up Before Build">
-      <p className="text-sm font-semibold uppercase tracking-wider text-[#9B191F]">
-        ~2 minutes
-      </p>
-
-      <div className="rounded-xl border border-black/10 bg-[#9B191F] p-5 text-center text-white dark:border-white/10">
-        <h3 className="text-2xl font-bold tracking-tight">Clean Up Before Build</h3>
-        <p className="mt-1 text-sm text-white/85">Delete the boilerplate. Make room for your code.</p>
-      </div>
+    <Section id="hands-on-00" number="00" title="Hands-on #00 — Clean Up Before Build">
+      <HandsOnBanner number={0} title="Clean Up Before Build">
+        Delete the boilerplate and make room for your code.
+      </HandsOnBanner>
 
       <p>
         The default Next.js screen is the <strong>boilerplate</strong>. It proves
@@ -51,80 +53,18 @@ export function HandsOn00Section() {
 
       <ol className="list-inside list-decimal space-y-2 text-sm" start={3}>
         <li>
-          Navigate to{" "}
+          Open{" "}
           <code className="rounded bg-zinc-100 px-1.5 py-0.5 font-mono text-xs dark:bg-zinc-800">
-            localhost:3000/about
+            http://localhost:3000/
           </code>{" "}
-          in your browser and test it.
+          and confirm that <strong>My Workspace</strong> appears.
         </li>
       </ol>
 
-      <div className="rounded-xl border border-[#9B191F]/30 bg-[#9B191F]/5 p-5 text-center dark:bg-[#9B191F]/10">
-        <p className="text-xl font-bold text-[#9B191F]">HUH?!!</p>
-        <p className="mt-1 font-semibold text-zinc-800 dark:text-zinc-200">
-          My screen show nothing tho…
-        </p>
-        <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
-          How to test???
-        </p>
-      </div>
-
-      <h3 className="text-lg font-semibold text-[#9B191F]">
-        Build &amp; test — how we make it live in local
-      </h3>
-      <p className="text-sm text-zinc-600 dark:text-zinc-400">
-        The <code>/about</code> page does not exist yet — so you saw nothing (or a
-        404). First make the <strong>Home</strong> page live with the dev server,
-        then open <code>localhost:3000</code> (not <code>/about</code> yet).
-      </p>
-
-      <CodeBlock title="Terminal" language="bash" code={`npm run dev`} />
-
-      <p className="text-sm">
-        Then open{" "}
-        <code className="rounded bg-zinc-100 px-1.5 py-0.5 font-mono text-xs dark:bg-zinc-800">
-          http://localhost:3000
-        </code>
-        . You should see <strong>My Workspace</strong>.
-      </p>
-
-      <h3 className="text-lg font-semibold text-[#9B191F]">
-        Development vs production
-      </h3>
-      <div className="grid gap-3 md:grid-cols-3">
-        <div className="rounded-xl border border-black/10 bg-white p-4 dark:border-white/10 dark:bg-zinc-900">
-          <p className="text-sm font-bold text-zinc-900 dark:text-zinc-100">
-            Development
-          </p>
-          <code className="mt-1 block text-xs text-[#9B191F]">npm run dev</code>
-          <p className="mt-2 text-xs text-zinc-600 dark:text-zinc-400">
-            Hot reload, detailed errors. Larger / slower — best while coding.
-          </p>
-        </div>
-        <div className="rounded-xl border border-black/10 bg-white p-4 dark:border-white/10 dark:bg-zinc-900">
-          <p className="text-sm font-bold text-zinc-900 dark:text-zinc-100">
-            Production build
-          </p>
-          <code className="mt-1 block text-xs text-[#9B191F]">npm run build</code>
-          <p className="mt-2 text-xs text-zinc-600 dark:text-zinc-400">
-            Optimizes for speed — minify, images, static files.
-          </p>
-        </div>
-        <div className="rounded-xl border border-black/10 bg-white p-4 dark:border-white/10 dark:bg-zinc-900">
-          <p className="text-sm font-bold text-zinc-900 dark:text-zinc-100">
-            Production preview
-          </p>
-          <code className="mt-1 block text-xs text-[#9B191F]">npm run start</code>
-          <p className="mt-2 text-xs text-zinc-600 dark:text-zinc-400">
-            Runs the optimized build — closest to what users see live.
-          </p>
-        </div>
-      </div>
-
-      <ProTip title="Speaker tip">
-        Stay on <code>npm run dev</code> for the whole workshop today. Build /
-        start matter more when we deploy on Day 2.
-      </ProTip>
+      <DoneWhen>
+        <code>http://localhost:3000/</code> shows <strong>My Workspace</strong>{" "}
+        and the terminal has no red error message.
+      </DoneWhen>
     </Section>
   );
 }
@@ -133,18 +73,12 @@ export function HandsOn01Section() {
   return (
     <Section
       id="hands-on-01"
-      number={8}
+      number="01"
       title="Hands-on #01 — Build Your ProfileCard Component"
     >
-      <p className="text-sm font-semibold uppercase tracking-wider text-[#9B191F]">
-        ~10 minutes
-      </p>
-
-      <div className="rounded-xl border border-black/10 bg-[#9B191F] p-5 text-center text-white dark:border-white/10">
-        <h3 className="text-2xl font-bold tracking-tight">
-          Build Your ProfileCard Component
-        </h3>
-      </div>
+      <HandsOnBanner number={1} title="Build Your ProfileCard Component">
+        Create one reusable card template with consistent prop names.
+      </HandsOnBanner>
 
       <h3 className="text-lg font-semibold text-[#9B191F]">Exercise</h3>
       <ol className="list-inside list-decimal space-y-2 text-sm">
@@ -155,17 +89,17 @@ export function HandsOn01Section() {
           </code>
         </li>
         <li>
-          Write a function component that accepts props:{" "}
-          <code>name</code>, <code>course</code>, <code>description</code>,{" "}
-          <code>image</code> (we start with text props first; image comes in
-          Hands-on #02).
+          Your ProfileCard will use these props: <code>name</code>,{" "}
+          <code>title</code>, <code>desc</code>, and <code>imageSrc</code>. Start
+          with the three text props; you will add <code>imageSrc</code> in
+          Hands-on #02.
         </li>
-        <li>Display the props in your JSX.</li>
+        <li>Display the three text props in your JSX.</li>
       </ol>
 
       <p className="text-sm text-zinc-600 dark:text-zinc-400">
-        Copy this starter (workshop slide uses <code>title</code> /{" "}
-        <code>desc</code> for course + description):
+        Copy this starter with <code>name</code>, <code>title</code>, and{" "}
+        <code>desc</code>:
       </p>
 
       <CodeBlock
@@ -216,11 +150,17 @@ export function HandsOn01Section() {
       </ul>
 
       <div className="rounded-xl border border-dashed border-[#9B191F]/40 p-4 text-center">
-        <p className="font-semibold text-[#9B191F]">How about image???</p>
+        <p className="font-semibold text-[#9B191F]">What about the image?</p>
         <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
           Next hands-on — the Next.js <code>&lt;Image /&gt;</code> component.
         </p>
       </div>
+
+      <DoneWhen>
+        <code>src/components/ProfileCard.js</code> exports a component that
+        receives <code>name</code>, <code>title</code>, and <code>desc</code>.
+        It will appear in the browser after you import it in Hands-on #03.
+      </DoneWhen>
     </Section>
   );
 }
@@ -229,18 +169,12 @@ export function HandsOn02Section() {
   return (
     <Section
       id="hands-on-02"
-      number={9}
+      number="02"
       title="Hands-on #02 — The Next.js <Image /> Component"
     >
-      <p className="text-sm font-semibold uppercase tracking-wider text-[#9B191F]">
-        ~10 minutes
-      </p>
-
-      <div className="rounded-xl border border-black/10 bg-[#9B191F] p-5 text-center text-white dark:border-white/10">
-        <h3 className="text-2xl font-bold tracking-tight">
-          The Next.js {"<Image />"} Component
-        </h3>
-      </div>
+      <HandsOnBanner number={2} title="The Next.js <Image /> Component">
+        Add a safely sized image to the same ProfileCard component.
+      </HandsOnBanner>
 
       <h3 className="text-lg font-semibold text-[#9B191F]">
         Why use {"<Image />"}?
@@ -251,7 +185,8 @@ export function HandsOn02Section() {
             Standard {"<img>"} tag
           </p>
           <p className="mt-1 text-sm text-zinc-700 dark:text-zinc-300">
-            Unoptimized, slow, layout shifts.
+            You manually choose loading, sizing, and optimisation. Missing
+            dimensions can cause the page to move while loading.
           </p>
         </div>
         <div className="rounded-xl border border-emerald-300 bg-emerald-50 p-4 dark:border-emerald-800 dark:bg-emerald-950/40">
@@ -259,7 +194,8 @@ export function HandsOn02Section() {
             Next.js {"<Image />"} tag
           </p>
           <p className="mt-1 text-sm text-zinc-700 dark:text-zinc-300">
-            Automatic resizing, lazy loading, WebP format.
+            Helps optimise the file, lazy-loads by default, and reserves the
+            image shape using its width and height.
           </p>
         </div>
       </div>
@@ -313,6 +249,11 @@ export function ProfileCard({ name, title, desc, imageSrc }) {
         <code>public</code> in the path).
       </ProTip>
 
+      <Warning title="A personal photo is optional">
+        You may use an avatar, illustration, pet, or other non-sensitive image.
+        Do not put private information on a card you may publish later.
+      </Warning>
+
       <div className="rounded-xl border-2 border-dashed border-[#9B191F]/30 p-5 text-center">
         <p className="font-semibold text-zinc-900 dark:text-zinc-100">
           Now see yourself on your own website
@@ -322,6 +263,12 @@ export function ProfileCard({ name, title, desc, imageSrc }) {
           <code>/about</code>.
         </p>
       </div>
+
+      <DoneWhen>
+        <code>ProfileCard</code> receives <code>imageSrc</code> and renders a
+        Next.js <code>&lt;Image /&gt;</code> with <code>alt</code>, <code>width</code>,
+        and <code>height</code>.
+      </DoneWhen>
     </Section>
   );
 }
@@ -330,18 +277,12 @@ export function HandsOn03Section() {
   return (
     <Section
       id="hands-on-03"
-      number={10}
+      number="03"
       title='Hands-on #03 — Adding an "About Me" Route'
     >
-      <p className="text-sm font-semibold uppercase tracking-wider text-[#9B191F]">
-        ~10 minutes
-      </p>
-
-      <div className="rounded-xl border border-black/10 bg-[#9B191F] p-5 text-center text-white dark:border-white/10">
-        <h3 className="text-2xl font-bold tracking-tight">
-          Adding an &quot;About Me&quot; Route
-        </h3>
-      </div>
+      <HandsOnBanner number={3} title='Adding an "About Me" Route'>
+        Create the folder route, link to it, and finally render your card.
+      </HandsOnBanner>
 
       <h3 className="text-lg font-semibold text-[#9B191F]">Exercise — part A</h3>
       <ol className="list-inside list-decimal space-y-2 text-sm">
@@ -420,6 +361,11 @@ export default function About() {
         Test: click <strong>Go to About Me</strong>, or open{" "}
         <code>http://localhost:3000/about</code>.
       </p>
+
+      <DoneWhen>
+        The Home link opens <code>/about</code>, where your own ProfileCard and
+        chosen image are visible without a full-page reload.
+      </DoneWhen>
     </Section>
   );
 }
@@ -428,18 +374,12 @@ export function HandsOn04Section() {
   return (
     <Section
       id="hands-on-04"
-      number={11}
+      number="04"
       title="Hands-on #04 — Make Your Card Look Good"
     >
-      <p className="text-sm font-semibold uppercase tracking-wider text-[#9B191F]">
-        ~10 minutes
-      </p>
-
-      <div className="rounded-xl border border-black/10 bg-[#9B191F] p-5 text-center text-white dark:border-white/10">
-        <h3 className="text-2xl font-bold tracking-tight">
-          Make Your Card Look Good
-        </h3>
-      </div>
+      <HandsOnBanner number={4} title="Make Your Card Look Good">
+        Apply the same utility ideas you tested in the Tailwind playground.
+      </HandsOnBanner>
 
       <h3 className="text-lg font-semibold text-[#9B191F]">Exercise — must have</h3>
 
@@ -584,16 +524,22 @@ export default function About() {
   );
 }`}
       />
+
+      <DoneWhen>
+        Your card stays readable, the photo remains circular and unsquashed,
+        and the About page has a clear background with comfortable spacing.
+      </DoneWhen>
     </Section>
   );
 }
 
 export function Day1SummarySection() {
   return (
-    <Section id="day-1-summary" number={12} title="Summary — What's Next?">
-      <div className="rounded-xl border border-black/10 bg-[#9B191F] p-5 text-center text-white dark:border-white/10">
-        <h3 className="text-2xl font-bold tracking-tight">What&apos;s Next?</h3>
-      </div>
+    <Section id="day-1-summary" number="✓" title="Summary — What's Next?">
+      <LessonMeta
+        slides="85–94"
+        outcome="Check your finished Day 1 project and prepare only the accounts needed for Day 2."
+      />
 
       <h3 className="text-lg font-semibold text-[#9B191F]">
         What you just did
@@ -631,31 +577,46 @@ export function Day1SummarySection() {
         </p>
         <ol className="mt-2 list-inside list-decimal space-y-1 text-sm text-amber-900/90 dark:text-amber-100/90">
           <li>
-            Create a free account at{" "}
+            Create a free GitHub account at{" "}
             <a
-              href="https://vercel.com"
+              href="https://github.com/signup"
               target="_blank"
               rel="noopener noreferrer"
               className="underline hover:no-underline"
             >
-              vercel.com
+              github.com/signup
             </a>
           </li>
-          <li>Connect it to your GitHub account</li>
-          <li>Push your project to GitHub</li>
+          <li>
+            Create a free Vercel account at{" "}
+            <a
+              href="https://vercel.com/signup"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline hover:no-underline"
+            >
+              vercel.com/signup
+            </a>
+          </li>
         </ol>
         <p className="mt-3 text-sm text-amber-900/90 dark:text-amber-100/90">
           Need step-by-step help? Go back to the{" "}
-          <a
+          <Link
             href="/#before-day-2"
             className="font-semibold underline hover:no-underline"
           >
             Home page → Before Day 2
-          </a>{" "}
-          prerequisites — GitHub signup, link VS Code, and create a Vercel
-          account (with the walkthrough videos).
+          </Link>{" "}
+          prerequisites for the GitHub and Vercel account walkthroughs.
         </p>
       </div>
+
+      <FacilitatorNote title="Closing flow for slides 88–94">
+        Invite final questions and let helpers resolve any remaining red error
+        screens. Then run the lucky draw, explain the certificate and feedback
+        steps, and finish with the contact and thank-you slides. These are event
+        cues; students do not need to change their code.
+      </FacilitatorNote>
     </Section>
   );
 }

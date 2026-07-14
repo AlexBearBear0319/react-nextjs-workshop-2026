@@ -3,10 +3,13 @@
  * Utility-first classes in JSX — no separate CSS files for beginners.
  */
 
+import { TailwindCardPlayground } from "@/components/games/Day1LearningLabs";
 import { CodeBlock } from "@/components/ui/CodeBlock";
+import { FacilitatorNote } from "@/components/ui/FacilitatorNote";
 import { ProTip } from "@/components/ui/ProTip";
 import { Section } from "@/components/ui/Section";
 import { Warning } from "@/components/ui/Warning";
+import { LessonMeta } from "@/components/workshop/LessonKit";
 
 const CLASS_BREAKDOWN = [
   { cls: "bg-white", meaning: "background white" },
@@ -17,22 +20,17 @@ const CLASS_BREAKDOWN = [
 
 export function TailwindStylingSection() {
   return (
-    <Section id="tailwind-styling" number={6} title="Tailwind CSS Styling">
-      <p className="text-sm font-semibold uppercase tracking-wider text-[#9B191F]">
+    <Section id="tailwind-styling" number={9} title="Tailwind CSS Styling">
+      <LessonMeta
+        slides="62–65"
+        outcome="Read Tailwind utilities inside className, change them, and predict how the card will look."
+      />
+
+      <p className="text-sm font-semibold uppercase tracking-wider text-[#9B191F] dark:text-red-300">
         Making it look less ugly
       </p>
 
-      <div className="rounded-xl border border-black/10 bg-[#9B191F] p-5 text-center text-white dark:border-white/10">
-        <h3 className="text-2xl font-bold tracking-tight">Tailwind CSS</h3>
-        <p className="mt-1 text-sm font-semibold uppercase tracking-wide text-white/90">
-          Making it look less ugly
-        </p>
-        <p className="mt-2 text-sm italic text-white/80">
-          (No separate CSS files. No switching tabs. Just classes.)
-        </p>
-      </div>
-
-      <h3 className="text-lg font-semibold text-[#9B191F]">
+      <h3 className="text-lg font-semibold text-[#9B191F] dark:text-red-300">
         Styling at the speed of thought
       </h3>
 
@@ -71,7 +69,7 @@ export function TailwindStylingSection() {
         </div>
       </div>
 
-      <h3 className="text-lg font-semibold text-[#9B191F]">
+      <h3 className="text-lg font-semibold text-[#9B191F] dark:text-red-300">
         Decode one line of Tailwind
       </h3>
       <CodeBlock
@@ -87,7 +85,7 @@ export function TailwindStylingSection() {
             key={cls}
             className="flex items-center gap-3 rounded-lg border border-black/10 bg-zinc-50 px-3 py-2.5 dark:border-white/10 dark:bg-zinc-900/60"
           >
-            <code className="rounded bg-[#9B191F]/10 px-2 py-0.5 font-mono text-sm font-semibold text-[#9B191F]">
+            <code className="rounded bg-[#9B191F]/10 px-2 py-0.5 font-mono text-sm font-semibold text-[#9B191F] dark:text-red-300">
               {cls}
             </code>
             <span className="text-sm text-zinc-600 dark:text-zinc-400">
@@ -106,7 +104,7 @@ export function TailwindStylingSection() {
             href="https://tailwindcss.com/docs"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-medium text-[#9B191F] underline hover:no-underline"
+            className="font-medium text-[#9B191F] underline hover:no-underline dark:text-red-300"
           >
             Tailwind documentation
           </a>
@@ -134,26 +132,31 @@ export function TailwindStylingSection() {
         </a>
       </div>
 
-      {/* Preview only — full coding is Hands-on #04 */}
-      <h3 className="text-lg font-semibold text-[#9B191F]">
-        Peek: what a styled card can look like
-      </h3>
-      <p className="text-sm text-zinc-600 dark:text-zinc-400">
-        You will build and style the real Profile Card in the Hands-on section
-        next. Here is a preview of utility classes in action:
-      </p>
-
-      <div className="overflow-hidden rounded-2xl border border-black/10 bg-zinc-100 p-6 dark:border-white/10 dark:bg-zinc-950">
-        <div className="max-w-sm rounded-2xl bg-white p-6 shadow-lg">
-          <div className="mb-4 h-20 w-20 rounded-full bg-blue-500" />
-          <h2 className="text-2xl font-bold text-gray-900">Ahmad</h2>
-          <p className="text-sm font-medium text-blue-600">Computer Science</p>
-          <p className="mt-2 text-gray-600">Learning React and Next.js!</p>
-        </div>
-        <p className="mt-3 font-mono text-xs text-zinc-500">
-          bg-white · p-6 · rounded-2xl · shadow-lg · text-2xl · font-bold
+      <div className="rounded-xl border border-blue-300 bg-blue-50 p-4 text-sm text-blue-950 dark:border-blue-800 dark:bg-blue-950/30 dark:text-blue-100">
+        <p className="font-semibold">Tailwind is written in className</p>
+        <p className="mt-1">
+          The utilities sit directly on the JSX element, so they can feel like
+          “inline styling”. Technically, React&apos;s inline-style API is the{" "}
+          <code>style={"{{ ... }}"}</code> prop; today we use Tailwind utilities
+          inside <code>className</code> instead.
         </p>
       </div>
+
+      <h3 className="text-lg font-semibold text-[#9B191F] dark:text-red-300">
+        Try it: change the card utilities
+      </h3>
+      <p className="text-sm text-zinc-600 dark:text-zinc-400">
+        Change the background, rounding, padding, and shadow. Watch both the
+        card and its generated <code>className</code> update immediately.
+      </p>
+
+      <TailwindCardPlayground />
+
+      <FacilitatorNote title="Teaching cue: ask for a prediction">
+        Change one control at a time. Before selecting it, ask students whether
+        it will affect colour, spacing, corners, or depth. Then let them choose
+        their own combination and explain one class to a helper.
+      </FacilitatorNote>
 
       <Warning title="Styles not showing up later?">
         Save the file — <strong>Cmd+S</strong> / <strong>Ctrl+S</strong>. Your

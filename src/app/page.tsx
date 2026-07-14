@@ -4,6 +4,7 @@
  * Welcome screen with Day 1 install prerequisites and Day 2 account setup.
  */
 
+import Link from "next/link";
 import { WorkshopLayout } from "@/components/layout/WorkshopLayout";
 import { VideoEmbed } from "@/components/ui/VideoEmbed";
 import { DAY1_DATE, DAY2_DATE } from "@/config/workshopState";
@@ -43,7 +44,7 @@ export default function HomePage() {
             </span>
             <div className="min-w-0 flex-1">
               <p className="font-medium text-zinc-900 dark:text-zinc-100">
-                Node.js (v18 or newer)
+                Node.js (v20.9 or newer)
               </p>
               <p className="text-sm text-zinc-500 dark:text-zinc-400">
                 Download the LTS build from{" "}
@@ -156,25 +157,7 @@ export default function HomePage() {
             </span>
             <div className="min-w-0 flex-1">
               <p className="font-medium text-zinc-900 dark:text-zinc-100">
-                Link &amp; connect GitHub to VS Code
-              </p>
-              <p className="text-sm text-zinc-500 dark:text-zinc-400">
-                Connect your GitHub account inside VS Code so you can push your
-                project from the editor.
-              </p>
-              <VideoEmbed
-                videoId="zko9puhRcHo"
-                title="Link and connect GitHub to Visual Studio Code"
-              />
-            </div>
-          </li>
-          <li className="flex items-start gap-3">
-            <span className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#9B191F]/10 text-xs font-bold text-[#9B191F]">
-              3
-            </span>
-            <div className="min-w-0 flex-1">
-              <p className="font-medium text-zinc-900 dark:text-zinc-100">
-                Create a Vercel account linked to GitHub
+                Create a Vercel account
               </p>
               <p className="text-sm text-zinc-500 dark:text-zinc-400">
                 Sign up at{" "}
@@ -185,13 +168,13 @@ export default function HomePage() {
                   className="text-[#9B191F] underline hover:no-underline"
                 >
                   vercel.com/signup
-                </a>{" "}
-                and connect the same GitHub account so Day 2 deployment is one
-                click.
+                </a>
+                . Use an email you can access — we will connect your accounts
+                and deploy together on Day 2.
               </p>
               <VideoEmbed
                 videoId="KW-NP7lolJk"
-                title="Create a Vercel account with GitHub linked"
+                title="Create a Vercel account"
               />
             </div>
           </li>
@@ -207,7 +190,7 @@ export default function HomePage() {
           Install the Day 1 tools above, and set up GitHub + Vercel before Day 2
           ({DAY2_DATE}). Check the sidebar for lock status.
         </p>
-        <a
+        <Link
           href="/day-1"
           className="inline-flex items-center gap-2 rounded-lg bg-[#9B191F] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#7d1419]"
         >
@@ -216,7 +199,7 @@ export default function HomePage() {
             <line x1="5" y1="12" x2="19" y2="12" />
             <polyline points="12 5 19 12 12 19" />
           </svg>
-        </a>
+        </Link>
       </div>
     </WorkshopLayout>
   );

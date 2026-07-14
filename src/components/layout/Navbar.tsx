@@ -11,7 +11,7 @@ import { ThemeToggle } from "./ThemeToggle";
 
 export function Navbar() {
   return (
-    <header className="sticky top-0 z-30 flex h-14 items-center justify-between border-b border-black/10 bg-white/70 px-4 backdrop-blur-md dark:border-white/10 dark:bg-black/60 lg:px-6">
+    <header className="sticky top-0 z-30 flex h-14 items-center justify-between border-b border-black/10 bg-white/70 px-4 backdrop-blur-md dark:border-[#2a2a3a] dark:bg-[#0a0a0f]/85 lg:px-6">
       <Link
         href="/"
         className="flex min-w-0 items-center gap-2.5 rounded-md outline-offset-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#9B191F]"

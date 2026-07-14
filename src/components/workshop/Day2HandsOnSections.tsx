@@ -21,7 +21,7 @@ export function SkillsToggleHandsOnSection() {
   return (
     <Section
       id="hands-on-01"
-      number={9}
+      number="01"
       title="Hands-on #01 — Show & Hide Skills"
     >
       <HandsOnBanner number={1} title="Build a Skills Toggle" duration="~10 min">
@@ -160,7 +160,7 @@ export function QuoteCardHandsOnSection() {
   return (
     <Section
       id="hands-on-02"
-      number={10}
+      number="02"
       title="Hands-on #02 — Fetch a Live Quote"
     >
       <HandsOnBanner number={2} title="Add a Random Quote Card" duration="~10 min">
@@ -309,7 +309,7 @@ export function GitSaveHandsOnSection() {
   return (
     <Section
       id="hands-on-03"
-      number={11}
+      number="03"
       title="Hands-on #03 — Save Your Work"
     >
       <HandsOnBanner number={3} title="Commit and Push Properly" duration="~5 min">
@@ -394,7 +394,7 @@ export function AutoDeployHandsOnSection() {
   return (
     <Section
       id="hands-on-04"
-      number={12}
+      number="04"
       title="Hands-on #04 — Watch It Go Live"
     >
       <HandsOnBanner number={4} title="Verify the Automatic Deployment" duration="~5 min">
@@ -472,7 +472,7 @@ export function AutoDeployHandsOnSection() {
 
 export function Day2SummarySection() {
   return (
-    <Section id="day-2-summary" number={13} title="Day 2 Complete — You Shipped">
+    <Section id="day-2-summary" number="✓" title="Day 2 Complete — You Shipped">
       <div className="rounded-xl border border-black/10 bg-[#9B191F] p-6 text-center text-white dark:border-white/10">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
           Workshop complete

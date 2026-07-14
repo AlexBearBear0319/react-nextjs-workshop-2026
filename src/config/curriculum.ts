@@ -11,18 +11,96 @@ export type CurriculumTopic = {
 };
 
 export const DAY1_TOPICS: CurriculumTopic[] = [
-  { id: "project-setup", label: "Project Setup Time" },
-  { id: "what-is-jsx", label: "What is JSX?" },
-  { id: "file-structure", label: "File Structure" },
-  { id: "components", label: "Components" },
-  { id: "props", label: "Props" },
-  { id: "tailwind-styling", label: "Tailwind CSS Styling" },
-  { id: "hands-on-00", label: "Hands-on #00 — Clean Up" },
-  { id: "hands-on-01", label: "Hands-on #01 — ProfileCard" },
-  { id: "hands-on-02", label: "Hands-on #02 — Image" },
-  { id: "hands-on-03", label: "Hands-on #03 — About Route" },
-  { id: "hands-on-04", label: "Hands-on #04 — Style Card" },
-  { id: "day-1-summary", label: "Summary — What's Next?" },
+  {
+    id: "why-react-nextjs",
+    label: "Why React & Next.js?",
+    group: "Teaching & theory",
+    navNumber: "1",
+  },
+  {
+    id: "project-setup",
+    label: "Project Setup Time",
+    group: "Teaching & theory",
+    navNumber: "2",
+  },
+  {
+    id: "what-is-jsx",
+    label: "What is JSX?",
+    group: "Teaching & theory",
+    navNumber: "3",
+  },
+  {
+    id: "file-structure",
+    label: "File Structure",
+    group: "Teaching & theory",
+    navNumber: "4",
+  },
+  {
+    id: "build-hot-reload",
+    label: "Build, Run & Fast Refresh",
+    group: "Teaching & theory",
+    navNumber: "5",
+  },
+  {
+    id: "routing",
+    label: "Routing — Folders Become URLs",
+    group: "Teaching & theory",
+    navNumber: "6",
+  },
+  {
+    id: "components",
+    label: "Components",
+    group: "Teaching & theory",
+    navNumber: "7",
+  },
+  {
+    id: "props",
+    label: "Props",
+    group: "Teaching & theory",
+    navNumber: "8",
+  },
+  {
+    id: "tailwind-styling",
+    label: "Tailwind CSS Styling",
+    group: "Teaching & theory",
+    navNumber: "9",
+  },
+  {
+    id: "hands-on-00",
+    label: "Clean Up",
+    group: "Hands-on practice",
+    navNumber: "00",
+  },
+  {
+    id: "hands-on-01",
+    label: "ProfileCard",
+    group: "Hands-on practice",
+    navNumber: "01",
+  },
+  {
+    id: "hands-on-02",
+    label: "Add an Image",
+    group: "Hands-on practice",
+    navNumber: "02",
+  },
+  {
+    id: "hands-on-03",
+    label: "About Route",
+    group: "Hands-on practice",
+    navNumber: "03",
+  },
+  {
+    id: "hands-on-04",
+    label: "Style the Card",
+    group: "Hands-on practice",
+    navNumber: "04",
+  },
+  {
+    id: "day-1-summary",
+    label: "What's Next?",
+    group: "Wrap-up",
+    navNumber: "✓",
+  },
 ];
 
 export const DAY2_TOPICS: CurriculumTopic[] = [
@@ -78,25 +156,25 @@ export const DAY2_TOPICS: CurriculumTopic[] = [
     id: "hands-on-01",
     label: "Skills Toggle",
     group: "Hands-on practice",
-    navNumber: "1",
+    navNumber: "01",
   },
   {
     id: "hands-on-02",
     label: "QuoteCard",
     group: "Hands-on practice",
-    navNumber: "2",
+    navNumber: "02",
   },
   {
     id: "hands-on-03",
     label: "Commit & Push",
     group: "Hands-on practice",
-    navNumber: "3",
+    navNumber: "03",
   },
   {
     id: "hands-on-04",
     label: "Go Live",
     group: "Hands-on practice",
-    navNumber: "4",
+    navNumber: "04",
   },
   {
     id: "day-2-summary",

@@ -1,18 +1,23 @@
 /**
- * Day 1 — Topic 1 (continued): What is JSX?
+ * Day 1 — What is JSX?
  * Placed right after Project Setup for absolute beginners.
  */
 
 import { CodeBlock } from "@/components/ui/CodeBlock";
-import { ProTip } from "@/components/ui/ProTip";
+import { FacilitatorNote } from "@/components/ui/FacilitatorNote";
 import { Section } from "@/components/ui/Section";
 import { Warning } from "@/components/ui/Warning";
+import { LessonMeta } from "@/components/workshop/LessonKit";
 
 export function WhatIsJsxSection() {
   return (
-    <Section id="what-is-jsx" number={2} title="What is JSX?">
+    <Section id="what-is-jsx" number={3} title="What is JSX?">
+      <LessonMeta
+        slides="32–33"
+        outcome="Recognise HTML-like JSX inside a JavaScript component and distinguish it from a separate HTML file."
+      />
       <p className="text-sm font-semibold uppercase tracking-wider text-[#9B191F]">
-        Topic 1 · after project setup
+        Core concept · after project setup
       </p>
 
       <p>
@@ -70,12 +75,12 @@ function Greeting() {
 }`}
       />
 
-      <ProTip title="Speaker tip">
+      <FacilitatorNote>
         Advice from us: you do <strong>not</strong> need to memorize the word
         &quot;XML&quot;. Just remember: <strong>JSX looks like HTML, but it
         lives inside your React / JavaScript files</strong> (like{" "}
         <code>.js</code> or <code>.jsx</code>).
-      </ProTip>
+      </FacilitatorNote>
 
       <Warning title="Common first-day confusion">
         If you open <code>src/app/page.js</code> and see{" "}

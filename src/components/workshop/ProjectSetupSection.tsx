@@ -5,14 +5,27 @@
  * Simple create-next-app flow (JavaScript + ESLint, no TypeScript), with OS-specific steps.
  */
 
-import { useEffect, useState, type ReactNode } from "react";
+import { useState, useSyncExternalStore, type ReactNode } from "react";
 import { CodeBlock } from "@/components/ui/CodeBlock";
 import { OsToggle } from "@/components/ui/OsToggle";
 import { ProTip } from "@/components/ui/ProTip";
 import { Section } from "@/components/ui/Section";
 import { Warning } from "@/components/ui/Warning";
+import { LessonMeta } from "@/components/workshop/LessonKit";
 
 type Os = "macos" | "windows";
+
+const subscribeToPlatform = () => () => {};
+
+function getDetectedOs(): Os {
+  const platform = window.navigator.platform.toLowerCase();
+  const ua = window.navigator.userAgent.toLowerCase();
+  return platform.includes("win") || ua.includes("windows")
+    ? "windows"
+    : "macos";
+}
+
+const getServerOs = (): Os => "macos";
 
 const SETUP_CHOICES = [
   { prompt: "Ok to proceed?", answer: "y" },
@@ -181,7 +194,7 @@ function WindowsSetup() {
 npm --version`}
         />
         <p>
-          You should see version numbers (Node should be <strong>v18+</strong>).
+          You should see version numbers (Node should be <strong>v20.9+</strong>).
         </p>
         <Warning title={`Common error: 'node' is not recognized as an internal or external command`}>
           Node is missing from PATH. Install Node.js LTS from the Home page,
@@ -228,49 +241,21 @@ npm --version`}
         </Warning>
       </Step>
 
-      <Step number={7} title="Enter the project and start the server">
+      <Step number={7} title="Enter the generated project folder">
         <CodeBlock
           language="bash"
           title="Command Prompt"
-          code={`cd my-profile-card
-npm run dev`}
+          code="cd my-profile-card"
         />
         <p>
-          Open{" "}
-          <a
-            href="http://localhost:3000"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-medium text-[#9B191F] underline hover:no-underline"
-          >
-            http://localhost:3000
-          </a>{" "}
-          in your browser. You should see the Next.js welcome page.
+          Your terminal path should now end with <code>my-profile-card</code>.
+          Stop here—we will inspect the generated files before starting the
+          development server.
         </p>
-        <Warning title="Popular Windows issues after npm run dev">
-          <ul className="mt-2 list-inside list-disc space-y-1">
-            <li>
-              <strong>Port 3000 is already in use</strong> → close the other
-              terminal running Next.js, or use{" "}
-              <code>npm run dev -- -p 3001</code> and open{" "}
-              <code>http://localhost:3001</code>
-            </li>
-            <li>
-              <strong>Missing script: &quot;dev&quot;</strong> → you are not
-              inside <code>my-profile-card</code> yet. Run{" "}
-              <code>cd my-profile-card</code> first
-            </li>
-            <li>
-              <strong>Cannot find module</strong> → run{" "}
-              <code>npm install</code> inside <code>my-profile-card</code>, then{" "}
-              <code>npm run dev</code> again
-            </li>
-          </ul>
-        </Warning>
       </Step>
 
       <Step number={8} title="Open the project in VS Code">
-        <p>Keep the server running, then open the project folder:</p>
+        <p>Open the generated project folder:</p>
         <ul className="list-inside list-disc space-y-1">
           <li>
             In File Explorer, go into <code>my-profile-card</code>
@@ -284,24 +269,23 @@ npm run dev`}
             <code>my-profile-card</code>, or
           </li>
           <li>
-            From Command Prompt (in your workshop folder):
+            From Command Prompt (already inside <code>my-profile-card</code>):
           </li>
         </ul>
         <CodeBlock
           language="bash"
           title="Command Prompt"
-          code={`cd my-profile-card
-code .`}
+          code="code ."
         />
         <Warning title={`'code' is not recognized?`}>
-          Open VS Code once, press <strong>Ctrl + Shift + P</strong>, run{" "}
-          <strong>Shell Command: Install &apos;code&apos; command in PATH</strong>{" "}
-          (or reinstall VS Code and tick the PATH option), then open a{" "}
-          <strong>new</strong> CMD window and try again.
+          Use <strong>File → Open Folder…</strong> for now. Later, rerun the VS
+          Code installer and enable the PATH option, then open a{" "}
+          <strong>new</strong> Command Prompt window.
         </Warning>
         <ProTip title="Windows tip">
-          Save files with <strong>Ctrl + S</strong>. Next.js only refreshes
-          after the file is actually saved.
+          Save files with <strong>Ctrl + S</strong>. After the file tour, the
+          Build &amp; Test topic will start the development server and show why
+          saving matters.
         </ProTip>
       </Step>
     </div>
@@ -383,7 +367,7 @@ function MacSetup() {
 npm --version`}
         />
         <p>
-          You should see version numbers (Node should be <strong>v18+</strong>).
+          You should see version numbers (Node should be <strong>v20.9+</strong>).
         </p>
         <Warning title="Common error: command not found: node / npx">
           Install Node.js LTS from the Home page, then{" "}
@@ -433,46 +417,21 @@ npm --version`}
         </Warning>
       </Step>
 
-      <Step number={5} title="Enter the project and start the server">
+      <Step number={5} title="Enter the generated project folder">
         <CodeBlock
           language="bash"
           title="macOS Terminal"
-          code={`cd my-profile-card
-npm run dev`}
+          code="cd my-profile-card"
         />
         <p>
-          Open{" "}
-          <a
-            href="http://localhost:3000"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-medium text-[#9B191F] underline hover:no-underline"
-          >
-            http://localhost:3000
-          </a>{" "}
-          in your browser. You should see the Next.js welcome page.
+          Your terminal path should now end with <code>my-profile-card</code>.
+          Stop here—we will inspect the generated files before starting the
+          development server.
         </p>
-        <Warning title="Popular macOS issues after npm run dev">
-          <ul className="mt-2 list-inside list-disc space-y-1">
-            <li>
-              <strong>Port 3000 is already in use</strong> → quit the other
-              Terminal tab running Next, or run{" "}
-              <code>npm run dev -- -p 3001</code>
-            </li>
-            <li>
-              <strong>Missing script: &quot;dev&quot;</strong> → you are still
-              in the parent folder. Run <code>cd my-profile-card</code> first
-            </li>
-            <li>
-              <strong>Cannot find module</strong> → run{" "}
-              <code>npm install</code>, then <code>npm run dev</code> again
-            </li>
-          </ul>
-        </Warning>
       </Step>
 
       <Step number={6} title="Open the project in VS Code">
-        <p>Keep the server running, then open the project folder:</p>
+        <p>Open the generated project folder:</p>
         <ul className="list-inside list-disc space-y-1">
           <li>
             In Finder, right-click <code>my-profile-card</code> →{" "}
@@ -483,14 +442,13 @@ npm run dev`}
             <code>my-profile-card</code>, or
           </li>
           <li>
-            From Terminal (in your workshop folder):
+            From Terminal (already inside <code>my-profile-card</code>):
           </li>
         </ul>
         <CodeBlock
           language="bash"
           title="macOS Terminal"
-          code={`cd my-profile-card
-code .`}
+          code="code ."
         />
         <Warning title="command not found: code?">
           Open VS Code, press <strong>Cmd + Shift + P</strong>, run{" "}
@@ -498,8 +456,9 @@ code .`}
           , then open a <strong>new</strong> Terminal and try again.
         </Warning>
         <ProTip title="macOS tip">
-          Save files with <strong>Cmd + S</strong>. Next.js only refreshes after
-          the file is actually saved. You can also open Terminal inside VS Code
+          Save files with <strong>Cmd + S</strong>. After the file tour, the
+          Build &amp; Test topic will start the development server and show why
+          saving matters. You can also open Terminal inside VS Code
           later with <strong>Control + `</strong>.
         </ProTip>
       </Step>
@@ -508,26 +467,28 @@ code .`}
 }
 
 export function ProjectSetupSection() {
-  const [os, setOs] = useState<Os>("macos");
-
-  useEffect(() => {
-    const platform = window.navigator.platform.toLowerCase();
-    const ua = window.navigator.userAgent.toLowerCase();
-    if (platform.includes("win") || ua.includes("windows")) {
-      setOs("windows");
-    }
-  }, []);
+  const detectedOs = useSyncExternalStore(
+    subscribeToPlatform,
+    getDetectedOs,
+    getServerOs,
+  );
+  const [selectedOs, setSelectedOs] = useState<Os | null>(null);
+  const os = selectedOs ?? detectedOs;
 
   return (
-    <Section id="project-setup" number={1} title="Project Setup Time">
+    <Section id="project-setup" number={2} title="Project Setup Time">
+      <LessonMeta
+        slides="28–31"
+        outcome="Create the same JavaScript, ESLint, Tailwind, src-directory, and App Router project on Windows or macOS."
+      />
       <p className="text-sm font-semibold uppercase tracking-wider text-[#9B191F]">
-        Topic 1 · start here
+        Topic 2 · create the project
       </p>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <p className="!mb-0 text-sm text-zinc-500 dark:text-zinc-400">
           Pick your laptop OS — follow only that checklist.
         </p>
-        <OsToggle value={os} onChange={setOs} />
+        <OsToggle value={os} onChange={setSelectedOs} />
       </div>
 
       <p>

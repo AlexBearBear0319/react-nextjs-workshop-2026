@@ -1,13 +1,14 @@
 /**
- * Day 1 — Topic 1 (continued): File Structure
+ * Day 1 — File Structure
  * After Project Setup + What is JSX.
  * Separates src (components) from app (pages / routing).
  */
 
 import { CodeBlock } from "@/components/ui/CodeBlock";
-import { ProTip } from "@/components/ui/ProTip";
+import { FacilitatorNote } from "@/components/ui/FacilitatorNote";
 import { Section } from "@/components/ui/Section";
 import { Warning } from "@/components/ui/Warning";
+import { LessonMeta } from "@/components/workshop/LessonKit";
 
 function TreeRow({
   name,
@@ -39,9 +40,13 @@ function TreeRow({
 
 export function FileStructureSection() {
   return (
-    <Section id="file-structure" number={3} title="File Structure">
+    <Section id="file-structure" number={4} title="File Structure">
+      <LessonMeta
+        slides="34–37"
+        outcome="Find pages, shared layouts, components, images, and generated folders without editing the wrong file."
+      />
       <p className="text-sm font-semibold uppercase tracking-wider text-[#9B191F]">
-        Topic 1 · where does everything live?
+        Project map · where does everything live?
       </p>
 
       <p>
@@ -74,14 +79,13 @@ export function FileStructureSection() {
       <CodeBlock
         language="bash"
         title="Terminal"
-        code={`cd my-profile-card
-code .`}
+        code="code ."
       />
       <Warning title="command not found: code?">
-        In VS Code, press <strong>Cmd + Shift + P</strong> (Mac) or{" "}
-        <strong>Ctrl + Shift + P</strong> (Windows), run{" "}
-        <strong>Shell Command: Install &apos;code&apos; command in PATH</strong>
-        , then open a new terminal and try again.
+        Open the folder with <strong>File → Open Folder…</strong> for now. On
+        Mac, the Command Palette can install the <code>code</code> shell
+        command. On Windows, rerun the VS Code installer and enable its PATH
+        option. Then open a new terminal.
       </Warning>
 
       <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
@@ -91,7 +95,7 @@ code .`}
       <div className="grid gap-2 sm:grid-cols-2">
         <TreeRow
           name=".next/"
-          hint="Next.js engine room. Do not touch."
+          hint="Appears after dev/build runs. Generated files—do not touch."
           tone="danger"
         />
         <TreeRow
@@ -106,7 +110,7 @@ code .`}
         />
         <TreeRow
           name="src/"
-          hint="Your source code home — components live here (see below)."
+          hint="Your source-code root—app/ exists now; you add components/ later."
           tone="focus"
         />
         <TreeRow
@@ -121,24 +125,29 @@ code .`}
         />
       </div>
 
-      {/* src vs app — kept separate on purpose */}
+      {/* components vs app — sibling folders inside src */}
       <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
-        Important: <code>src</code> and <code>app</code> are different jobs
+        Important: <code>src/components</code> and <code>src/app</code> have
+        different jobs
       </h3>
       <p>
-        Do not mix these up. Advice from us: learn them as{" "}
-        <strong>two separate folders</strong> with two separate jobs.
+        Both folders sit inside <code>src</code>. Learn them as sibling folders
+        with two separate jobs.
       </p>
 
       <div className="grid gap-4 md:grid-cols-2">
         <div className="rounded-xl border border-emerald-300 bg-emerald-50 p-4 dark:border-emerald-800 dark:bg-emerald-950/40">
           <p className="font-mono text-base font-bold text-zinc-900 dark:text-zinc-100">
-            src/
+            src/components/
           </p>
           <p className="mt-2 text-sm text-zinc-700 dark:text-zinc-300">
             <strong>Store your building blocks here</strong> — especially
             reusable <strong>components</strong> (for example{" "}
-            <code>src/components/ProfileCard.jsx</code>).
+            <code>src/components/ProfileCard.js</code>).
+          </p>
+          <p className="mt-2 rounded-lg bg-emerald-100/80 px-2.5 py-2 text-xs font-medium text-emerald-900 dark:bg-emerald-950/60 dark:text-emerald-200">
+            This folder is not generated for you. You will create it in
+            Hands-on #01.
           </p>
           <p className="mt-2 text-xs text-zinc-600 dark:text-zinc-400">
             Think: LEGO pieces you will reuse.
@@ -152,7 +161,7 @@ code .`}
             <strong>Pages and routing live here</strong>. Folders and{" "}
             <code>page.js</code> files become URLs (for example{" "}
             <code>src/app/page.js</code> → <code>/</code> →{" "}
-            <code>localhost:3000</code>).
+            <code>localhost:3000</code> once the server starts).
           </p>
           <p className="mt-2 text-xs text-zinc-600 dark:text-zinc-400">
             Think: which screen the visitor opens.
@@ -160,13 +169,13 @@ code .`}
         </div>
       </div>
 
-      <ProTip title="Speaker tip">
+      <FacilitatorNote>
         Advice from us: today you mainly open files inside{" "}
         <code>src/app/</code> for the home page. When we build the Profile Card,
         we will create components under <code>src/components/</code> (still
         inside <code>src</code>, but <strong>not</strong> inside{" "}
         <code>app</code>).
-      </ProTip>
+      </FacilitatorNote>
 
       <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
         Inside <code>src/app</code> (pages)
@@ -212,8 +221,8 @@ code .`}
           </p>
           <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
             <strong>Home page UI</strong> for <code>/</code> — what you see at{" "}
-            <code>http://localhost:3000</code>. This is the main page file we
-            edit first.
+            <code>http://localhost:3000</code> after the next topic starts the
+            server. This is the main page file we edit first.
           </p>
         </div>
       </div>
@@ -230,9 +239,9 @@ code .`}
           Checkpoint
         </p>
         <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-          Point to <code>src</code> (components home) and <code>src/app</code>{" "}
-          (pages / routing) in the sidebar. Say out loud which one is which —
-          then you are ready for Components &amp; Props.
+          Point to <code>src/app</code> (pages and routing), then say where you
+          will create <code>src/components</code> (reusable building blocks)
+          later. Continue to Build &amp; Test and Routing.
         </p>
       </div>
     </Section>

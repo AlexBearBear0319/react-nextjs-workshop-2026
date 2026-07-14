@@ -5,25 +5,22 @@
 
 import { BubbleTeaBuilder } from "@/components/games/BubbleTeaBuilder";
 import { CodeBlock } from "@/components/ui/CodeBlock";
+import { FacilitatorNote } from "@/components/ui/FacilitatorNote";
 import { ProTip } from "@/components/ui/ProTip";
 import { Section } from "@/components/ui/Section";
+import { LessonMeta } from "@/components/workshop/LessonKit";
 
 export function PropsSection() {
   return (
-    <Section id="props" number={5} title="Props">
-      <p className="text-sm font-semibold uppercase tracking-wider text-[#9B191F]">
+    <Section id="props" number={8} title="Props">
+      <LessonMeta
+        slides="58–61"
+        outcome="Pass name, title, desc, and imageSrc into one reusable ProfileCard."
+      />
+
+      <p className="text-sm font-semibold uppercase tracking-wider text-[#9B191F] dark:text-red-300">
         How to customise your component
       </p>
-
-      <div className="rounded-xl border border-black/10 bg-[#9B191F] p-5 text-center text-white dark:border-white/10">
-        <h3 className="text-2xl font-bold tracking-tight">Props</h3>
-        <p className="mt-1 text-sm font-semibold uppercase tracking-wide text-white/90">
-          How to customise your component
-        </p>
-        <p className="mt-2 text-sm text-white/80">
-          (Back to personal profile info scenarios)
-        </p>
-      </div>
 
       <p>
         A component without props is stuck on one value — like a profile card
@@ -32,7 +29,7 @@ export function PropsSection() {
       </p>
 
       {/* Before vs After */}
-      <h3 className="text-lg font-semibold text-[#9B191F]">
+      <h3 className="text-lg font-semibold text-[#9B191F] dark:text-red-300">
         Props: before vs after
       </h3>
 
@@ -59,13 +56,13 @@ export function PropsSection() {
           </p>
           <CodeBlock
             title="Same component · different people"
-            code={`function ProfileCard({ name, course }) {
-  return <h2>{name} — {course}</h2>
+            code={`function ProfileCard({ name, title }) {
+  return <h2>{name} — {title}</h2>
 }
 
 // Usage:
-<ProfileCard name="Ahmad" course="CS" />
-<ProfileCard name="Priya" course="Business" />`}
+<ProfileCard name="Ahmad" title="CS Student" />
+<ProfileCard name="Priya" title="Business Student" />`}
           />
         </div>
       </div>
@@ -76,7 +73,7 @@ export function PropsSection() {
             A — receive
           </p>
           <p className="mt-1 text-zinc-600 dark:text-zinc-400">
-            Create <code>name</code> and <code>course</code> with curly braces{" "}
+            Create <code>name</code> and <code>title</code> with curly braces{" "}
             <code>{"{}"}</code> as boxes to receive the values.
           </p>
         </div>
@@ -86,13 +83,13 @@ export function PropsSection() {
           </p>
           <p className="mt-1 text-zinc-600 dark:text-zinc-400">
             Pass the values with <code>name=&quot;Ahmad&quot;</code> and{" "}
-            <code>course=&quot;CS&quot;</code> when you use the component.
+            <code>title=&quot;CS Student&quot;</code> when you use the component.
           </p>
         </div>
       </div>
 
       {/* Parent → child */}
-      <h3 className="text-lg font-semibold text-[#9B191F]">
+      <h3 className="text-lg font-semibold text-[#9B191F] dark:text-red-300">
         Props: parent and child components
       </h3>
       <p className="text-sm text-zinc-600 dark:text-zinc-400">
@@ -104,14 +101,14 @@ export function PropsSection() {
           title="page.js — the parent"
           code={`// page.js (the parent)
 // Uses the component, passes props:
-<ProfileCard name="Ahmad" course="CS" />`}
+<ProfileCard name="Ahmad" title="CS Student" />`}
         />
         <CodeBlock
           title="ProfileCard.js — the child"
           code={`// ProfileCard.js (the child)
 // Receives and displays the props:
-function ProfileCard({ name, course }) {
-  return <div>{name} — {course}</div>
+function ProfileCard({ name, title }) {
+  return <div>{name} — {title}</div>
 }`}
         />
       </div>
@@ -123,7 +120,7 @@ function ProfileCard({ name, course }) {
 
       {/* Bridge back to bubble tea + simulator */}
       <div className="rounded-xl border border-[#9B191F]/30 bg-gradient-to-br from-[#9B191F]/5 to-amber-50/80 p-4 dark:border-[#9B191F]/40 dark:from-[#9B191F]/15 dark:to-zinc-900">
-        <p className="text-lg font-bold text-[#9B191F]">
+        <p className="text-lg font-bold text-[#9B191F] dark:text-red-300">
           Play: one component · three pages
         </p>
         <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
@@ -144,6 +141,22 @@ function ProfileCard({ name, course }) {
       />
 
       <BubbleTeaBuilder />
+
+      <div className="rounded-xl border border-blue-300 bg-blue-50 p-4 text-sm text-blue-950 dark:border-blue-800 dark:bg-blue-950/30 dark:text-blue-100">
+        <p className="font-semibold">The ProfileCard names we will keep</p>
+        <p className="mt-1">
+          <code>name</code>, <code>title</code>, <code>desc</code>, and{" "}
+          <code>imageSrc</code>. Keeping the same names through Day 1 and Day 2
+          makes every later copy-and-paste step fit together.
+        </p>
+      </div>
+
+      <FacilitatorNote title="Teaching cue: keep props progressive">
+        Demonstrate <code>name</code> and <code>title</code> first. Once students
+        can point to where each value is passed and received, introduce{" "}
+        <code>desc</code> and <code>imageSrc</code> as the two fields they will
+        add during the hands-on steps.
+      </FacilitatorNote>
 
       <div className="rounded-xl border-2 border-dashed border-[#9B191F]/30 p-5 text-center">
         <p className="font-semibold text-zinc-900 dark:text-zinc-100">

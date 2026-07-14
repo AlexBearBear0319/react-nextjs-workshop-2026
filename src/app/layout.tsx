@@ -8,7 +8,14 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
+const productionHost =
+  process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL;
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (productionHost ? "https://" + productionHost : "http://localhost:3000");
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: "React Workshop Series | React & Next.js",
   description:
     "Step-by-step interactive guide for the 2-day React & Next.js workshop.",

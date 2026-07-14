@@ -16,6 +16,11 @@ import { PropsSection } from "@/components/workshop/PropsSection";
 import { TailwindStylingSection } from "@/components/workshop/TailwindStylingSection";
 import { WhatIsJsxSection } from "@/components/workshop/WhatIsJsxSection";
 import {
+  BuildHotReloadSection,
+  IntroductionTheorySection,
+  RoutingTheorySection,
+} from "@/components/workshop/Day1TheorySections";
+import {
   DAY1_TOPICS,
   isValidTopic,
   topicHref,
@@ -23,9 +28,12 @@ import {
 import type { ReactNode } from "react";
 
 const DAY1_CONTENT: Record<string, ReactNode> = {
+  "why-react-nextjs": <IntroductionTheorySection />,
   "project-setup": <ProjectSetupSection />,
   "what-is-jsx": <WhatIsJsxSection />,
   "file-structure": <FileStructureSection />,
+  "build-hot-reload": <BuildHotReloadSection />,
+  routing: <RoutingTheorySection />,
   components: <ComponentsSection />,
   props: <PropsSection />,
   "tailwind-styling": <TailwindStylingSection />,
@@ -54,24 +62,54 @@ export default async function Day1TopicPage({
 
   const meta = DAY1_TOPICS.find((t) => t.id === topic)!;
   const index = DAY1_TOPICS.findIndex((t) => t.id === topic);
+  const phase = meta.group ?? "Teaching & theory";
 
   return (
     <>
+      <h1 className="sr-only">Day 1 — {meta.label}</h1>
       <div className="mb-6">
-        <p className="mb-1 text-sm font-semibold uppercase tracking-wider text-[#9B191F]">
-          Day 1 · Topic {index + 1} of {DAY1_TOPICS.length}
-        </p>
+        <div className="mb-1 flex flex-wrap items-center gap-2 text-sm font-semibold uppercase tracking-wider text-[#9B191F] dark:text-red-300">
+          <span>
+            Day 1 · Topic {index + 1} of {DAY1_TOPICS.length}
+          </span>
+          <span className="rounded-full bg-[#9B191F]/10 px-2 py-0.5 text-[10px] tracking-[0.14em] dark:bg-[#9B191F]/20 dark:text-red-300">
+            {phase}
+          </span>
+        </div>
         <p className="text-sm text-zinc-500 dark:text-zinc-400">
           <Link
             href={topicHref("day-1", DAY1_TOPICS[0].id)}
             className="hover:underline"
           >
-            Foundations
+            Foundations &amp; build
           </Link>
           <span className="mx-1.5">/</span>
           {meta.label}
         </p>
       </div>
+
+      {index === 0 && (
+        <div className="mb-8 grid gap-3 rounded-xl border border-emerald-200 bg-emerald-50 p-4 dark:border-emerald-900 dark:bg-emerald-950/30 sm:grid-cols-[1fr_auto] sm:items-center">
+          <div>
+            <p className="text-sm font-medium text-emerald-900 dark:text-emerald-200">
+              Your Day 1 slide companion
+            </p>
+            <p className="mt-1 text-sm text-emerald-800 dark:text-emerald-300">
+              Follow the topics in order, use the Copy buttons and checkpoints,
+              and raise your hand when you need a helper. Your code is expected
+              to grow one small step at a time.
+            </p>
+          </div>
+          <div className="flex gap-2 text-center text-xs font-semibold">
+            <span className="rounded-lg bg-white/80 px-3 py-2 text-emerald-900 dark:bg-emerald-950 dark:text-emerald-200">
+              9 theory
+            </span>
+            <span className="rounded-lg bg-white/80 px-3 py-2 text-emerald-900 dark:bg-emerald-950 dark:text-emerald-200">
+              5 hands-on
+            </span>
+          </div>
+        </div>
+      )}
 
       {DAY1_CONTENT[topic]}
 

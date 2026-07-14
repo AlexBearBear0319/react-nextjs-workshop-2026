@@ -30,8 +30,13 @@
 
 /* Dark mode overrides (toggled by next-themes via class="dark") */
 .dark {
-  --background: #121212;
-  --foreground: #ededed;
+  --background: #0a0a0f;
+  --foreground: #f0f0f5;
+}
+
+/* SIM red is a strong brand colour but too dark for text on near-black cards. */
+.dark .text-\[\#9B191F\] {
+  color: #fca5a5;
 }
 
 body {

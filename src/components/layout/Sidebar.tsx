@@ -7,7 +7,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import {
   DAY1_TOPICS,
   DAY2_TOPICS,
@@ -155,8 +155,52 @@ export function Sidebar() {
   const day2Unlocked = useDay2Unlocked();
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const drawerRef = useRef<HTMLElement>(null);
 
-  const closeMobile = () => setMobileOpen(false);
+  const closeMobile = () => {
+    setMobileOpen(false);
+    requestAnimationFrame(() => menuButtonRef.current?.focus());
+  };
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    closeButtonRef.current?.focus();
+
+    const handleDrawerKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMobileOpen(false);
+        requestAnimationFrame(() => menuButtonRef.current?.focus());
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+      const focusable = drawerRef.current?.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled])',
+      );
+      if (!focusable?.length) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    window.addEventListener("keydown", handleDrawerKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleDrawerKeyDown);
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [mobileOpen]);
 
   const sidebarContent = (
     <nav className="flex flex-col gap-2 p-4" aria-label="Curriculum">
@@ -195,10 +239,14 @@ export function Sidebar() {
   return (
     <>
       <button
+        ref={menuButtonRef}
         type="button"
         onClick={() => setMobileOpen(true)}
-        className="fixed bottom-4 left-4 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-[#9B191F] text-white shadow-lg lg:hidden"
+        className="fixed left-4 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-[#9B191F] text-white shadow-lg lg:hidden"
+        style={{ bottom: "calc(1rem + env(safe-area-inset-bottom))" }}
         aria-label="Open navigation"
+        aria-expanded={mobileOpen}
+        aria-controls="mobile-workshop-navigation"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -224,12 +272,20 @@ export function Sidebar() {
             onClick={closeMobile}
             aria-hidden
           />
-          <aside className="absolute left-0 top-0 flex h-full w-72 flex-col border-r border-black/10 bg-white/80 shadow-xl backdrop-blur-md dark:border-white/10 dark:bg-black/70">
+          <aside
+            ref={drawerRef}
+            id="mobile-workshop-navigation"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Workshop navigation"
+            className="absolute left-0 top-0 flex h-full w-72 flex-col border-r border-black/10 bg-white/80 shadow-xl backdrop-blur-md dark:border-[#2a2a3a] dark:bg-[#0a0a0f]/95"
+          >
             <div className="flex items-center justify-between border-b border-black/10 p-4 dark:border-white/10">
               <span className="font-semibold text-zinc-900 dark:text-zinc-100">
                 Menu
               </span>
               <button
+                ref={closeButtonRef}
                 type="button"
                 onClick={closeMobile}
                 className="rounded-lg p-1 text-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-800"
@@ -256,7 +312,7 @@ export function Sidebar() {
         </div>
       )}
 
-      <aside className="hidden w-64 shrink-0 border-r border-black/10 bg-white/70 backdrop-blur-md dark:border-white/10 dark:bg-black/40 lg:block">
+      <aside className="hidden w-64 shrink-0 border-r border-black/10 bg-white/70 backdrop-blur-md dark:border-[#2a2a3a] dark:bg-[#0a0a0f]/80 lg:block">
         <div className="sticky top-14 max-h-[calc(100vh-3.5rem)] overflow-y-auto p-2">
           <p className="px-3 py-2 text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
             Curriculum

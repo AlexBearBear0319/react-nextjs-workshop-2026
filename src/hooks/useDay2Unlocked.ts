@@ -8,7 +8,7 @@
  * 2. Hardcoded config in src/config/workshopState.ts — affects everyone after redeploy
  */
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import {
   DAY2_STORAGE_KEY,
   WORKSHOP_UNLOCK_EVENT,
@@ -16,31 +16,33 @@ import {
 } from "@/config/workshopState";
 
 function readUnlocked(): boolean {
-  const stored = localStorage.getItem(DAY2_STORAGE_KEY);
-  if (stored === "true") return true;
-  if (stored === "false") return false;
+  try {
+    const stored = localStorage.getItem(DAY2_STORAGE_KEY);
+    if (stored === "true") return true;
+    if (stored === "false") return false;
+  } catch {
+    // localStorage may be unavailable in some privacy modes
+  }
   return configDay2Unlocked;
 }
 
+function subscribe(onStoreChange: () => void) {
+  const handleStorage = (event: StorageEvent) => {
+    if (event.key === DAY2_STORAGE_KEY || event.key === null) onStoreChange();
+  };
+
+  window.addEventListener("storage", handleStorage);
+  window.addEventListener(WORKSHOP_UNLOCK_EVENT, onStoreChange);
+  return () => {
+    window.removeEventListener("storage", handleStorage);
+    window.removeEventListener(WORKSHOP_UNLOCK_EVENT, onStoreChange);
+  };
+}
+
 export function useDay2Unlocked(): boolean {
-  const [unlocked, setUnlocked] = useState(configDay2Unlocked);
-
-  useEffect(() => {
-    setUnlocked(readUnlocked());
-
-    const sync = () => setUnlocked(readUnlocked());
-
-    const handleStorage = (e: StorageEvent) => {
-      if (e.key === DAY2_STORAGE_KEY || e.key === null) sync();
-    };
-
-    window.addEventListener("storage", handleStorage);
-    window.addEventListener(WORKSHOP_UNLOCK_EVENT, sync);
-    return () => {
-      window.removeEventListener("storage", handleStorage);
-      window.removeEventListener(WORKSHOP_UNLOCK_EVENT, sync);
-    };
-  }, []);
-
-  return unlocked;
+  return useSyncExternalStore(
+    subscribe,
+    readUnlocked,
+    () => configDay2Unlocked,
+  );
 }

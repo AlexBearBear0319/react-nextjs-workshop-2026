@@ -4,23 +4,28 @@
  */
 
 import { CodeBlock } from "@/components/ui/CodeBlock";
-import { ProTip } from "@/components/ui/ProTip";
+import { FacilitatorNote } from "@/components/ui/FacilitatorNote";
 import { Section } from "@/components/ui/Section";
 import { Warning } from "@/components/ui/Warning";
+import {
+  ConceptCard,
+  ConceptGrid,
+  LessonMeta,
+} from "@/components/workshop/LessonKit";
 
 export function ComponentsSection() {
   return (
-    <Section id="components" number={4} title="Components">
-      <p className="text-sm font-semibold uppercase tracking-wider text-[#9B191F]">
+    <Section id="components" number={7} title="Components">
+      <LessonMeta
+        slides="45–56"
+        outcome="Build a reusable React component, then recognise which tools come from Next.js."
+      />
+
+      <p className="text-sm font-semibold uppercase tracking-wider text-[#9B191F] dark:text-red-300">
         The bubble tea theory
       </p>
 
-      <div className="rounded-xl border border-black/10 bg-[#9B191F] p-5 text-center text-white dark:border-white/10">
-        <h3 className="text-2xl font-bold tracking-tight">Components</h3>
-        <p className="mt-1 text-sm text-white/90">(The Bubble Tea Theory)</p>
-      </div>
-
-      <h3 className="text-lg font-semibold text-[#9B191F]">
+      <h3 className="text-lg font-semibold text-[#9B191F] dark:text-red-300">
         Why component? Think bubble tea
       </h3>
       <p>
@@ -39,7 +44,7 @@ export function ComponentsSection() {
             <strong>every page</strong>, then add avocado / strawberry / brown
             sugar.
           </p>
-          <p className="mt-3 text-sm font-semibold text-[#9B191F]">
+          <p className="mt-3 text-sm font-semibold text-[#9B191F] dark:text-red-300">
             Need a new cup cover? Edit the code on every page. Painful.
           </p>
         </div>
@@ -58,13 +63,13 @@ export function ComponentsSection() {
         </div>
       </div>
 
-      <ProTip title="Speaker tip">
+      <FacilitatorNote>
         Advice from us: stop rebuilding a brand-new cup from scratch every time.
         Make the template once. Reuse it. (Next section: how to pass different
         toppings with <strong>props</strong>.)
-      </ProTip>
+      </FacilitatorNote>
 
-      <h3 className="text-lg font-semibold text-[#9B191F]">
+      <h3 className="text-lg font-semibold text-[#9B191F] dark:text-red-300">
         The bubble tea analogy
       </h3>
       <ul className="list-inside list-disc space-y-2 text-sm">
@@ -76,7 +81,7 @@ export function ComponentsSection() {
         <li>Stop building a brand new cup from scratch every time.</li>
       </ul>
 
-      <h3 className="text-lg font-semibold text-[#9B191F]">
+      <h3 className="text-lg font-semibold text-[#9B191F] dark:text-red-300">
         React component structure (bubble tea edition)
       </h3>
       <p>
@@ -127,52 +132,139 @@ export function ComponentsSection() {
         Always start component names with a capital letter.
       </Warning>
 
-      <h3 className="text-lg font-semibold text-[#9B191F]">
-        Components come in different forms
+      <h3 className="text-lg font-semibold text-[#9B191F] dark:text-red-300">
+        React components and Next.js features
       </h3>
       <p className="italic text-zinc-600 dark:text-zinc-400">
-        Same concept. Different purposes.
+        Two are components you import. One is a special file that renders your
+        own component.
       </p>
 
-      <div className="grid gap-4 md:grid-cols-2">
-        <div className="rounded-xl border border-black/10 bg-white p-4 dark:border-white/10 dark:bg-zinc-900">
-          <p className="text-sm font-bold text-zinc-900 dark:text-zinc-100">
-            React — custom components
-          </p>
-          <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-            Ones <strong>you</strong> invent — like{" "}
-            <code>BubbleTeaCup</code> or later <code>ProfileCard</code>. You own
-            the template.
-          </p>
-        </div>
-        <div className="rounded-xl border border-black/10 bg-white p-4 dark:border-white/10 dark:bg-zinc-900">
-          <p className="text-sm font-bold text-zinc-900 dark:text-zinc-100">
-            Next.js — built-in components
-          </p>
-          <ul className="mt-2 list-inside list-disc space-y-1 text-sm text-zinc-600 dark:text-zinc-400">
-            <li>
-              <code>&lt;Link&gt;</code> — navigation without full page reload
-            </li>
-            <li>
-              <code>&lt;Image /&gt;</code> — optimised images automatically
-            </li>
-            <li>
-              <code>layout.js</code> — shared UI across pages
-            </li>
-          </ul>
-          <p className="mt-3 text-xs text-zinc-500">
-            More:{" "}
-            <a
-              href="https://nextjs.org/docs/app/api-reference/components"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#9B191F] underline hover:no-underline"
-            >
-              nextjs.org/docs — Components
-            </a>
-          </p>
-        </div>
-      </div>
+      <ConceptGrid>
+        <ConceptCard eyebrow="You build it" title="Custom React component" tone="red">
+          <code>ProfileCard</code> and <code>BubbleTeaCup</code> are functions
+          you create. Their capitalised names let React recognise them as
+          components.
+        </ConceptCard>
+        <ConceptCard eyebrow="Next.js component" title={<code>&lt;Link&gt;</code>} tone="green">
+          Import it from <code>next/link</code>. It extends a normal anchor for
+          fast navigation between your app&apos;s routes.
+        </ConceptCard>
+        <ConceptCard eyebrow="Next.js component" title={<code>&lt;Image /&gt;</code>} tone="blue">
+          Import it from <code>next/image</code>. It helps size and optimise an
+          image while requiring useful accessibility information.
+        </ConceptCard>
+        <ConceptCard eyebrow="Next.js file convention" title={<code>layout.js</code>} tone="purple">
+          This is <strong>not</strong> an imported built-in component. The file
+          exports your layout component, which wraps pages with shared UI such
+          as a navigation bar.
+        </ConceptCard>
+      </ConceptGrid>
+
+      <h3 className="text-lg font-semibold text-[#9B191F] dark:text-red-300">
+        1. Link: move between pages
+      </h3>
+      <CodeBlock
+        language="jsx"
+        title="src/app/page.js"
+        code={`import Link from "next/link";
+
+export default function Home() {
+  return <Link href="/">Go to Home</Link>;
+}`}
+      />
+      <p className="text-sm text-zinc-600 dark:text-zinc-400">
+        The <code>href</code> says where to go. <code>/</code> is the home URL
+        you already have. Next.js can prefetch linked routes in production and
+        navigate without replacing the entire page.
+      </p>
+
+      <h3 className="text-lg font-semibold text-[#9B191F] dark:text-red-300">
+        2. Image: show a correctly sized image
+      </h3>
+      <CodeBlock
+        language="jsx"
+        title="Inside ProfileCard.js"
+        code={`import Image from "next/image";
+
+<Image
+  src="/alex.png"
+  alt="Alex's profile photo"
+  width={96}
+  height={96}
+/>`}
+      />
+      <p className="text-sm text-zinc-600 dark:text-zinc-400">
+        <code>src</code> selects the file, <code>alt</code> explains the image,
+        and <code>width</code> plus <code>height</code> reserve its shape so the
+        page does not jump while loading. You will use this in Hands-on #02.
+      </p>
+
+      <h3 className="text-lg font-semibold text-[#9B191F] dark:text-red-300">
+        3. layout.js: keep the navigation shared
+      </h3>
+      <CodeBlock
+        language="jsx"
+        title="Concept preview — src/app/layout.js"
+        copyable={false}
+        code={`import Link from "next/link";
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body>
+        <nav>
+          <Link href="/">Home</Link>
+          <Link href="/about">About</Link>
+        </nav>
+        {children}
+      </body>
+    </html>
+  );
+}`}
+      />
+      <p className="text-sm text-zinc-600 dark:text-zinc-400">
+        <code>{"{children}"}</code> is the current page. The navigation sits
+        outside it, so the same navbar wraps both Home and About. For today,
+        understand the pattern—do not replace your generated root layout yet.
+      </p>
+
+      <Warning title="The important distinction">
+        <code>&lt;Link&gt;</code> and <code>&lt;Image /&gt;</code> are built-in Next.js
+        React components. <code>layout.js</code> is a special filename where
+        <strong> you define</strong> a layout component.
+      </Warning>
+
+      <p className="text-sm text-zinc-500 dark:text-zinc-400">
+        Official references:{" "}
+        <a
+          href="https://nextjs.org/docs/app/api-reference/components/link"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[#9B191F] underline hover:no-underline dark:text-red-300"
+        >
+          Link
+        </a>
+        {", "}
+        <a
+          href="https://nextjs.org/docs/app/api-reference/components/image"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[#9B191F] underline hover:no-underline dark:text-red-300"
+        >
+          Image
+        </a>
+        {", and "}
+        <a
+          href="https://nextjs.org/docs/app/api-reference/file-conventions/layout"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[#9B191F] underline hover:no-underline dark:text-red-300"
+        >
+          layout.js
+        </a>
+        .
+      </p>
 
       <div className="rounded-xl border-2 border-dashed border-[#9B191F]/30 p-5 text-center">
         <p className="font-semibold text-zinc-900 dark:text-zinc-100">
@@ -184,6 +276,12 @@ export function ComponentsSection() {
           each order (and your profile card).
         </p>
       </div>
+
+      <FacilitatorNote title="Planned break point">
+        Pause here before Props. Ask everyone to save their files and keep the
+        development terminal running. Helpers can use the pause to confirm that
+        each student can still see the local page before the class continues.
+      </FacilitatorNote>
     </Section>
   );
 }
