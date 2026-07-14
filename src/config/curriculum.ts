@@ -6,6 +6,8 @@
 export type CurriculumTopic = {
   id: string;
   label: string;
+  group?: string;
+  navNumber?: string;
 };
 
 export const DAY1_TOPICS: CurriculumTopic[] = [
@@ -24,9 +26,84 @@ export const DAY1_TOPICS: CurriculumTopic[] = [
 ];
 
 export const DAY2_TOPICS: CurriculumTopic[] = [
-  { id: "use-state", label: "useState — Interactivity" },
-  { id: "use-effect-fetch", label: "useEffect & Fetch" },
-  { id: "git-deploy", label: "Git, GitHub & Vercel" },
+  {
+    id: "rendering-fundamentals",
+    label: "Rendering — Server & Client",
+    group: "Teaching & theory",
+    navNumber: "1",
+  },
+  {
+    id: "react-hooks",
+    label: "React Hooks — The Big Two",
+    group: "Teaching & theory",
+    navNumber: "2",
+  },
+  {
+    id: "use-state",
+    label: "useState — Component Memory",
+    group: "Teaching & theory",
+    navNumber: "3",
+  },
+  {
+    id: "use-effect",
+    label: "useEffect — Dependencies",
+    group: "Teaching & theory",
+    navNumber: "4",
+  },
+  {
+    id: "async-fetch",
+    label: "Async JavaScript & Fetch",
+    group: "Teaching & theory",
+    navNumber: "5",
+  },
+  {
+    id: "event-handlers",
+    label: "React Event Handlers",
+    group: "Teaching & theory",
+    navNumber: "6",
+  },
+  {
+    id: "git-github",
+    label: "Git & GitHub",
+    group: "Teaching & theory",
+    navNumber: "7",
+  },
+  {
+    id: "vercel-deploy",
+    label: "Deploying to Vercel",
+    group: "Teaching & theory",
+    navNumber: "8",
+  },
+  {
+    id: "hands-on-01",
+    label: "Skills Toggle",
+    group: "Hands-on practice",
+    navNumber: "1",
+  },
+  {
+    id: "hands-on-02",
+    label: "QuoteCard",
+    group: "Hands-on practice",
+    navNumber: "2",
+  },
+  {
+    id: "hands-on-03",
+    label: "Commit & Push",
+    group: "Hands-on practice",
+    navNumber: "3",
+  },
+  {
+    id: "hands-on-04",
+    label: "Go Live",
+    group: "Hands-on practice",
+    navNumber: "4",
+  },
+  {
+    id: "day-2-summary",
+    label: "You Shipped",
+    group: "Wrap-up",
+    navNumber: "✓",
+  },
 ];
 
 export function topicHref(day: "day-1" | "day-2", topicId: string) {

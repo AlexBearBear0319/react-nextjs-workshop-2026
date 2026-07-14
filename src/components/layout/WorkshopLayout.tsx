@@ -13,7 +13,7 @@ export function WorkshopLayout({ children }: { children: React.ReactNode }) {
       <Navbar />
       <div className="flex flex-1">
         <Sidebar />
-        <main className="flex-1 overflow-y-auto">
+        <main className="min-w-0 flex-1 overflow-y-auto">
           <div className="mx-auto max-w-4xl px-4 py-8 lg:px-8 lg:py-12">
             {children}
           </div>

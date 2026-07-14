@@ -7,7 +7,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import {
   DAY1_TOPICS,
   DAY2_TOPICS,
@@ -39,6 +39,8 @@ function DayTopicNav({
   const [expanded, setExpanded] = useState(onThisDay);
 
   useEffect(() => {
+    // Preserve the existing behavior: navigating into a day opens its topics.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (onThisDay) setExpanded(true);
   }, [onThisDay]);
 
@@ -107,30 +109,39 @@ function DayTopicNav({
           {topics.map((topic, index) => {
             const href = topicHref(day, topic.id);
             const isActive = pathname === href;
+            const startsGroup =
+              topic.group && topic.group !== topics[index - 1]?.group;
 
             return (
-              <li key={topic.id}>
-                <Link
-                  href={href}
-                  onClick={onNavigate}
-                  className={`flex items-start gap-2 rounded-lg px-2.5 py-1.5 text-sm transition-colors ${
-                    isActive
-                      ? "bg-[#9B191F] font-medium text-white"
-                      : "text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
-                  }`}
-                >
-                  <span
-                    className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] font-bold ${
+              <Fragment key={topic.id}>
+                {startsGroup && (
+                  <li className="px-2.5 pb-1 pt-3 text-[10px] font-bold uppercase tracking-[0.14em] text-zinc-400 first:pt-1 dark:text-zinc-500">
+                    {topic.group}
+                  </li>
+                )}
+                <li>
+                  <Link
+                    href={href}
+                    onClick={onNavigate}
+                    className={`flex items-start gap-2 rounded-lg px-2.5 py-1.5 text-sm transition-colors ${
                       isActive
-                        ? "bg-white/20 text-white"
-                        : "bg-zinc-200 text-zinc-600 dark:bg-zinc-700 dark:text-zinc-300"
+                        ? "bg-[#9B191F] font-medium text-white"
+                        : "text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
                     }`}
                   >
-                    {index + 1}
-                  </span>
-                  <span className="leading-snug">{topic.label}</span>
-                </Link>
-              </li>
+                    <span
+                      className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] font-bold ${
+                        isActive
+                          ? "bg-white/20 text-white"
+                          : "bg-zinc-200 text-zinc-600 dark:bg-zinc-700 dark:text-zinc-300"
+                      }`}
+                    >
+                      {topic.navNumber ?? index + 1}
+                    </span>
+                    <span className="leading-snug">{topic.label}</span>
+                  </Link>
+                </li>
+              </Fragment>
             );
           })}
         </ul>

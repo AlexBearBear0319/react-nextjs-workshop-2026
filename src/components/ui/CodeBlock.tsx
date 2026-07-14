@@ -15,9 +15,15 @@ interface CodeBlockProps {
   code: string;
   language?: string;
   title?: string;
+  copyable?: boolean;
 }
 
-export function CodeBlock({ code, language = "tsx", title }: CodeBlockProps) {
+export function CodeBlock({
+  code,
+  language = "tsx",
+  title,
+  copyable = true,
+}: CodeBlockProps) {
   const [copied, setCopied] = useState(false);
 
   const highlightedLines = useMemo(
@@ -48,13 +54,19 @@ export function CodeBlock({ code, language = "tsx", title }: CodeBlockProps) {
         <span className="font-mono text-xs text-zinc-500 dark:text-zinc-400">
           {title ?? language}
         </span>
-        <button
-          type="button"
-          onClick={handleCopy}
-          className="rounded-md px-2.5 py-1 text-xs font-medium text-zinc-600 transition-colors hover:bg-[#9B191F]/10 hover:text-[#9B191F] dark:text-zinc-300 dark:hover:bg-[#9B191F]/20 dark:hover:text-white"
-        >
-          {copied ? "Copied!" : "Copy"}
-        </button>
+        {copyable ? (
+          <button
+            type="button"
+            onClick={handleCopy}
+            className="rounded-md px-2.5 py-1 text-xs font-medium text-zinc-600 transition-colors hover:bg-[#9B191F]/10 hover:text-[#9B191F] dark:text-zinc-300 dark:hover:bg-[#9B191F]/20 dark:hover:text-white"
+          >
+            {copied ? "Copied!" : "Copy"}
+          </button>
+        ) : (
+          <span className="rounded-md bg-zinc-100 px-2.5 py-1 text-xs font-medium text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400">
+            Concept only
+          </span>
+        )}
       </div>
 
       <pre className="overflow-x-auto p-4 font-mono text-sm leading-relaxed text-zinc-800 dark:text-zinc-100">

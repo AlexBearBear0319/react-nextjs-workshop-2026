@@ -11,7 +11,7 @@
  * and the counter updates, visually connecting "state changed" → "UI re-rendered".
  */
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 type HighlightedLine = "none" | "useState" | "setCount" | "render";
 
@@ -19,25 +19,41 @@ export function StateVisualizer() {
   const [count, setCount] = useState(0);
   const [highlighted, setHighlighted] = useState<HighlightedLine>("none");
   const [clickLog, setClickLog] = useState<string[]>([]);
+  const [animating, setAnimating] = useState(false);
+  const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
+
+  useEffect(() => {
+    const activeTimers = timers.current;
+    return () => activeTimers.forEach(clearTimeout);
+  }, []);
 
   const handleClick = useCallback(() => {
+    if (animating) return;
+
+    const nextCount = count + 1;
+    setAnimating(true);
+
     // Step 1: highlight setCount line
     setHighlighted("setCount");
-    setClickLog((prev) => [...prev, `setCount(${count} + 1) called`]);
+    setClickLog((prev) => [...prev, `Event → setCount(${count} + 1)`]);
 
     // Step 2: after a brief pause, update state and highlight useState
-    setTimeout(() => {
+    timers.current.push(setTimeout(() => {
       setCount((c) => c + 1);
       setHighlighted("useState");
+      setClickLog((prev) => [...prev, `State → count is now ${nextCount}`]);
 
       // Step 3: show re-render
-      setTimeout(() => {
+      timers.current.push(setTimeout(() => {
         setHighlighted("render");
-        setClickLog((prev) => [...prev, `Component re-rendered with count = ${count + 1}`]);
-        setTimeout(() => setHighlighted("none"), 800);
-      }, 400);
-    }, 400);
-  }, [count]);
+        setClickLog((prev) => [...prev, `Render → screen shows ${nextCount}`]);
+        timers.current.push(setTimeout(() => {
+          setHighlighted("none");
+          setAnimating(false);
+        }, 800));
+      }, 400));
+    }, 400));
+  }, [animating, count]);
 
   const lineClass = (line: HighlightedLine) => {
     const base = "block rounded px-2 py-0.5 transition-all duration-300 font-mono text-sm";
@@ -63,7 +79,7 @@ export function StateVisualizer() {
           <div className="border-b border-zinc-700 bg-zinc-800 px-4 py-2">
             <span className="font-mono text-xs text-zinc-400">Counter.tsx</span>
           </div>
-          <pre className="p-4 font-mono text-sm leading-7">
+          <pre className="overflow-x-auto p-4 font-mono text-sm leading-7">
             <code>
               <span className="text-purple-400">&quot;use client&quot;</span>
               {"\n\n"}
@@ -112,9 +128,10 @@ export function StateVisualizer() {
           <p className="text-sm text-zinc-500 dark:text-zinc-400">Live Preview</p>
           <button
             onClick={handleClick}
-            className="rounded-xl bg-[#9B191F] px-8 py-4 text-lg font-semibold text-white shadow-lg transition-transform hover:scale-105 active:scale-95"
+            disabled={animating}
+            className="rounded-xl bg-[#9B191F] px-8 py-4 text-lg font-semibold text-white shadow-lg transition-transform hover:scale-105 active:scale-95 disabled:cursor-wait disabled:opacity-70 disabled:hover:scale-100"
           >
-            Clicked {count} times
+            {animating ? "Watch the update…" : `Clicked ${count} times`}
           </button>
 
           {/* Execution log */}
@@ -123,7 +140,11 @@ export function StateVisualizer() {
               <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-zinc-400">
                 Execution Log
               </p>
-              <div className="max-h-32 overflow-y-auto rounded-lg bg-zinc-900 p-3 font-mono text-xs text-emerald-400">
+              <div
+                className="max-h-32 overflow-y-auto rounded-lg bg-zinc-900 p-3 font-mono text-xs text-emerald-400"
+                aria-live="polite"
+                aria-label="State update steps"
+              >
                 {clickLog.map((entry, i) => (
                   <p key={i} className="mb-1">
                     → {entry}
