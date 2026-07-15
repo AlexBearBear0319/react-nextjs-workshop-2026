@@ -207,7 +207,7 @@ export function HandsOn02Section() {
           <code className="rounded bg-zinc-100 px-1.5 py-0.5 font-mono text-xs dark:bg-zinc-800">
             public/
           </code>{" "}
-          folder (example: <code>public/alex.png</code>).
+          folder (example: <code>public/profile.png</code>).
         </li>
         <li>
           Import Image:{" "}
@@ -244,8 +244,8 @@ export function ProfileCard({ name, title, desc, imageSrc }) {
       />
 
       <ProTip title="public/ paths">
-        File at <code>public/alex.png</code> → use{" "}
-        <code>imageSrc=&quot;/alex.png&quot;</code> (leading slash, no{" "}
+        File at <code>public/profile.png</code> → use{" "}
+        <code>imageSrc=&quot;/profile.png&quot;</code> (leading slash, no{" "}
         <code>public</code> in the path).
       </ProTip>
 
@@ -253,6 +253,35 @@ export function ProfileCard({ name, title, desc, imageSrc }) {
         You may use an avatar, illustration, pet, or other non-sensitive image.
         Do not put private information on a card you may publish later.
       </Warning>
+
+      <div className="rounded-xl border border-blue-300 bg-blue-50 p-4 dark:border-blue-800 dark:bg-blue-950/30">
+        <p className="font-semibold text-blue-950 dark:text-blue-100">
+          Need a safe fallback image?
+        </p>
+        <p className="mt-1 text-sm text-blue-900 dark:text-blue-200">
+          Choose either picture. Both buttons save it as <code>profile.png</code>.
+          Move that file into your project&apos;s <code>public/</code> folder.
+          The later{" "}
+          <code>imageSrc=&quot;/profile.png&quot;</code> examples will work without
+          any renaming.
+        </p>
+        <div className="mt-3 flex flex-wrap gap-3">
+          <a
+            href="/avatars/profile-girl.png"
+            download="profile.png"
+            className="inline-flex rounded-lg bg-blue-700 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-blue-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 dark:ring-offset-zinc-950"
+          >
+            Download girl profile
+          </a>
+          <a
+            href="/avatars/profile-man.png"
+            download="profile.png"
+            className="inline-flex rounded-lg border border-blue-700 bg-white px-4 py-2.5 text-sm font-semibold text-blue-800 transition-colors hover:bg-blue-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 dark:bg-blue-950 dark:text-blue-100 dark:hover:bg-blue-900 dark:ring-offset-zinc-950"
+          >
+            Download man profile
+          </a>
+        </div>
+      </div>
 
       <div className="rounded-xl border-2 border-dashed border-[#9B191F]/30 p-5 text-center">
         <p className="font-semibold text-zinc-900 dark:text-zinc-100">
@@ -344,7 +373,7 @@ export default function About() {
         name="Alex"
         title="Computer Science Student"
         desc="Learning React and Next.js!"
-        imageSrc="/alex.png"
+        imageSrc="/profile.png"
       />
     </main>
   );
@@ -518,7 +547,7 @@ export default function About() {
         name="Alex"
         title="Computer Science Student"
         desc="Learning React and Next.js!"
-        imageSrc="/alex.png"
+        imageSrc="/profile.png"
       />
     </main>
   );
