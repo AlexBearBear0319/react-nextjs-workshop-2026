@@ -44,7 +44,7 @@ export const DAY2_RECAP_UNLOCK_LABEL = "23 Jul 2026, 00:00 SGT";
  * Flip to `true` after the Day 2 PDF is uploaded under public/slides/.
  * Until then the unlocked page shows Coming Soon + Telegram notice.
  */
-export const isDay2RecapReady = false;
+export const isDay2RecapReady = true;
 
 /** Organizer override for testing Day 2 Recap before the unlock clock. */
 export const isDay2RecapForceUnlocked = false;
